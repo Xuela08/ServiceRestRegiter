@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="es.tfg.modelo.Persona" table="PERSONA">
+        <id name="usuario" column="USUARIO"></id>
+        <property name="nombre" type="string" column="NOMBRE" />
+        <property name="apellidos" type="string" column="APELLIDOS" />
+        <property name="genero" type="string" column="GENERO" />
+        <property name="email" type="string" column="EMAIL" />
+        <property name="administrador" type="boolean" column="ADMINISTRADOR" />
+    </class>
+</hibernate-mapping>
