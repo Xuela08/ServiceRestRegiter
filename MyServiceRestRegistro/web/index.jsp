@@ -12,13 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Formulario</h1>
-        <form action="procesar.do" method="post">
-            Usuario: <input type="text" name="txtUsuario"/><br/>
-            Nombre: <input type="text" name="txtNombre" /> <br/>
-            Apellido: <input type="text" name="txtApellido"/><br/>
-            Email: <input type="text" name="txtEmail" /> <br/>
-            <input type="submit" value="Enviar datos"/>
-        </form>
+        <h1>Servicio activado</h1>
+        <p>/rest/*</p>
     </body>
 </html>
