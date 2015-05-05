@@ -9,14 +9,15 @@ public class PersonasDAO {
     private Session sesion; 
     private Transaction tx;  
 
-    public String guardaPersona(Persona persona) throws HibernateException 
+    public Persona guardaPersona(Persona persona) throws HibernateException 
     { 
         String usu = "";
         try 
         { 
             iniciaOperacion(); 
             usu = (String) sesion.save(persona); 
-            tx.commit(); 
+            tx.commit();
+            persona = (Persona) sesion.get(Persona.class, usu); 
         } catch (HibernateException he) 
         { 
             manejaExcepcion(he); 
@@ -26,7 +27,7 @@ public class PersonasDAO {
             sesion.close(); 
         }  
 
-        return usu; 
+        return persona; 
     }  
 
     public void actualizaPersona(Persona persona) throws HibernateException 
