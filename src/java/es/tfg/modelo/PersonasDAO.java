@@ -94,12 +94,45 @@ public class PersonasDAO {
 
         return listaPersonas; 
     }
+    
+    public boolean compruebaPersona(String usuario, String pass) throws HibernateException
+    {
+        Persona persona = null;
+        try 
+        { 
+            iniciaOperacion(); 
+            persona = (Persona) sesion.get(Persona.class, usuario);
+            if(persona == null)
+                return false;
+            else
+                return persona.comparePassword(pass);
+        } finally 
+        { 
+            sesion.close(); 
+        } 
+        
+    }
+    
+    public boolean esAdmin(String usuario) throws HibernateException
+    {
+        Persona persona = null;
+        try 
+        { 
+            iniciaOperacion(); 
+            persona = (Persona) sesion.get(Persona.class, usuario);
+            return persona.isAdministrador();
+        } finally 
+        { 
+            sesion.close(); 
+        } 
+        
+    }
 
     private void iniciaOperacion() throws HibernateException 
     { 
         sesion = HibernateUtil.getSessionFactory().openSession(); 
         tx = sesion.beginTransaction(); 
-    }  
+    }   
 
     private void manejaExcepcion(HibernateException he) throws HibernateException 
     { 

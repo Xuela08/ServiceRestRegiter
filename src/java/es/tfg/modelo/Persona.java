@@ -1,26 +1,29 @@
 package es.tfg.modelo;
 
 public class Persona {
-    String usuario;
-    String nombre;
-    String apellidos;
-    String genero;
-    String email;
-    boolean administrador;
+    private String usuario;
+    private String password;
+    private String nombre;
+    private String apellidos;
+    private String genero;
+    private String email;
+    private boolean administrador;
 
     public Persona() {
     }
 
-    public Persona(String usuario, String nombre, String apellidos, String email) {
+    public Persona(String usuario, String password, String nombre, String apellidos, String email) {
         this.usuario = usuario;
+        this.password = password;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
         this.administrador = false;
     }
 
-    public Persona(String usuario, String nombre, String apellidos, String genero, String email, boolean administrador) {
+    public Persona(String usuario, String password, String nombre, String apellidos, String genero, String email, boolean administrador) {
         this.usuario = usuario;
+        this.password = password;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.genero = genero;
@@ -34,6 +37,14 @@ public class Persona {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+    
+    public boolean comparePassword(String pass) {
+        return password.equals(pass);
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getNombre() {

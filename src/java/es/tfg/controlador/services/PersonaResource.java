@@ -25,12 +25,12 @@ public class PersonaResource {
 
     public PersonaResource() {
         this.personaDAO = new PersonasDAO();
-//        Persona p1 = new Persona("mjcd0005", "Manuel José", "Castro Damas", "mjcd0005@gmail.com");
-//        Persona p2 = new Persona("mpp00017", "Manuel", "Pancorbo Pestaña", "mpp00017@gmail.com");
-//        personaDAO.guardaPersona(p1);
-//        personaDAO.guardaPersona(p2);
+//        if (personaDAO.obtenPersona("administrador") == null) {
+//            Persona p1 = new Persona("administrador", "administrador", "administrador", "", "Hombre", "administrador@red.ujaen.es", true);
+//            personaDAO.guardaPersona(p1);
+//        }
     }
-
+    
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -42,7 +42,7 @@ public class PersonaResource {
 
         return Response.created(newUri).entity(newPersona).build();
     }
-
+    
     @PUT
     @Path("{usuario}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -52,31 +52,31 @@ public class PersonaResource {
 
         return this.personaDAO.obtenPersona(persona.getUsuario());
     }
-
+    
     @DELETE
     @Path("{usuario}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response remove(@PathParam("usuario") String usu) {
         this.personaDAO.eliminaPersona(this.personaDAO.obtenPersona(usu));
-        
+
         return Response.noContent().build();
     }
     
     @GET
     @Path("{usuario}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Persona getPersona(@PathParam("usuario") String usu){
-        
+    public Persona getPersona(@PathParam("usuario") String usu) {
+
         return this.personaDAO.obtenPersona(usu);
     }
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Persona> getAll() {
-        List<Persona>  list = this.personaDAO.obtenListaPersonas();
+        List<Persona> list = this.personaDAO.obtenListaPersonas();
 
         return list;
     }
-    
+
     //post autenticate
 }
