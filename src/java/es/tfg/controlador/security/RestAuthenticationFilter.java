@@ -25,8 +25,8 @@ public class RestAuthenticationFilter implements javax.servlet.Filter {
             String url = httpServletRequest.getPathInfo();
             AuthenticationService authenticationService = new AuthenticationService();
 
-            boolean authenticationStatus = /*authenticationService
-                    .authenticate(authCredentials)*/true;
+            boolean authenticationStatus = authenticationService
+                    .authenticate(authCredentials);
             
             boolean authoritationStatus = false;
             if(authenticationStatus){

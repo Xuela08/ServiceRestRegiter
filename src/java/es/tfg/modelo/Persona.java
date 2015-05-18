@@ -43,6 +43,10 @@ public class Persona {
         return password.equals(pass);
     }
     
+    public String getPassword() {
+        return password;
+    }
+    
     public void setPassword(String password) {
         this.password = password;
     }

@@ -68,11 +68,21 @@ public class AuthenticationService {
             return true;
         } else {
             //reglas de autorizacion
+            String raizUrl = "/personas";
+            
+            boolean b1 = url.equals(raizUrl+"/"+username);
+            //Get /personas
+            if(peticion.equals("GET") && url.equals(raizUrl)){
+                return true;
+            }else if((peticion.equals("PUT") || peticion.equals("DELETE") || peticion.equals("GET") )&& url.equals(raizUrl+"/"+username) ){
+                return true; //PUT-DELETE-GET /personas/{username} <-debe coincidir url con usuario
+            }else{
+                return false;// RESTO DE OPCIONES NO PERMITIDAS
+            }
 //            String[] peticionURL = url.split("/");
 //            String s = peticionURL[0];
 //            String t = peticionURL[1];
 //            String r = peticionURL[2];
-            return false;
         }
     }
 }
