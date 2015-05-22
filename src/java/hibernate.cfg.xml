@@ -13,5 +13,7 @@
     <property name="hbm2ddl.auto">update</property>
     <!-- Archivos de mapeo -->
     <mapping resource="es/tfg/modelo/mapeos/Persona.hbm.xml"/>
+    <mapping resource="es/tfg/modelo/mapeos/Token.hbm.xml"/>
+    <mapping resource="es/tfg/modelo/mapeos/Aporte.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

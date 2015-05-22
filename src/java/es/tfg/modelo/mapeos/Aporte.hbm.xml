@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="es.tfg.modelo.Aporte" table="APORTE">
+        <id name="id" column="ID">
+            <generator class="identity" />
+        </id>
+        <property name="titulo" type="string" column="TITULO" />
+        <property name="descripcion" type="string" column="DESCRIPCION" />
+        <property name="f_creacion" type="timestamp" column="F_CREACION" />
+        <property name="URLimagen" type="string" column="URLimagen" />
+        <property name="propietario" type="string" column="PROPIETARIO" />
+        <property name="tipo" type="string" column="TIPO" />
+    </class>
+</hibernate-mapping>

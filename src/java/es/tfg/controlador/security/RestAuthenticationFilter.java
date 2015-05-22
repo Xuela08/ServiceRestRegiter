@@ -13,8 +13,50 @@ import javax.servlet.http.HttpServletResponse;
 public class RestAuthenticationFilter implements javax.servlet.Filter {
 
     public static final String AUTHENTICATION_HEADER = "Authorization";
+    public static final String TOKEN_HEADER = "Token";
+    
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response,
+            FilterChain filter) throws IOException, ServletException {
+        if (request instanceof HttpServletRequest) {
+            HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+            String authToken = httpServletRequest
+                    .getHeader(TOKEN_HEADER);
+            String peticion = httpServletRequest.getMethod();
+            String url = httpServletRequest.getPathInfo();
+            AuthenticationService authenticationService = new AuthenticationService();
+
+            //Si usuToken es null, el token no es correcto a expirado
+            String usuToken = authenticationService.authenticate(authToken);
+            
+            boolean authoritationStatus = false;
+            if(authToken != null){
+                authoritationStatus = authenticationService
+                    .authoritate(usuToken, peticion, url);
+            }
+            
+            if (authoritationStatus) {
+                filter.doFilter(request, response);
+            } else {
+                if (response instanceof HttpServletResponse) {
+                    HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+                    httpServletResponse
+                            .setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                }
+            }
+        }
+    }
 
     @Override
+    public void destroy() {
+    }
+
+    @Override
+    public void init(FilterConfig arg0) throws ServletException {
+    }
+}
+/*
+@Override
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain filter) throws IOException, ServletException {
         if (request instanceof HttpServletRequest) {
@@ -44,14 +86,4 @@ public class RestAuthenticationFilter implements javax.servlet.Filter {
                 }
             }
         }
-    }
-
-    @Override
-    public void destroy() {
-    }
-
-    @Override
-    public void init(FilterConfig arg0) throws ServletException {
-    }
-}
-
+    }*/

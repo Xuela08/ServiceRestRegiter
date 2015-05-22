@@ -25,10 +25,6 @@ public class PersonaResource {
 
     public PersonaResource() {
         this.personaDAO = new PersonasDAO();
-//        if (personaDAO.obtenPersona("administrador") == null) {
-//            Persona p1 = new Persona("administrador", "administrador", "administrador", "", "Hombre", "administrador@red.ujaen.es", true);
-//            personaDAO.guardaPersona(p1);
-//        }
     }
     
     @POST
