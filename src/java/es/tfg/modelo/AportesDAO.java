@@ -1,12 +1,13 @@
 package es.tfg.modelo;
 
+import java.util.Date;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class AporteDAO {
+public class AportesDAO {
 
     private Session sesion;
     private Transaction tx;
@@ -16,6 +17,8 @@ public class AporteDAO {
 
         try {
             iniciaOperacion();
+            Date actual = new Date();
+            aporte.setF_creacion(actual);
             id = (Long) sesion.save(aporte);
             tx.commit();
         } catch (HibernateException he) {
@@ -41,7 +44,7 @@ public class AporteDAO {
         }
     }
 
-    public void eliminaContacto(Aporte aporte) throws HibernateException {
+    public void eliminaAporte(Aporte aporte) throws HibernateException {
         try {
             iniciaOperacion();
             sesion.delete(aporte);
@@ -71,7 +74,7 @@ public class AporteDAO {
 
         try {
             iniciaOperacion();
-            listaAporte = sesion.createQuery("from APORTE").list();
+            listaAporte = sesion.createQuery("from Aporte").list();
         } finally {
             sesion.close();
         }
@@ -84,8 +87,8 @@ public class AporteDAO {
 
         try {
             iniciaOperacion();
-            Query query = sesion.createSQLQuery("SELECT * FROM aporte a WHERE a. tipo = :idtipo");
-            query.setParameter("idtipo", tipo);
+            Query query = sesion.createQuery("FROM Aporte A WHERE A.tipo = :tipo_id");
+            query.setParameter("tipo_id",tipo);
             listaAporte = query.list();
         } finally {
             sesion.close();

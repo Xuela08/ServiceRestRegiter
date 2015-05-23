@@ -7,19 +7,19 @@ public class Aporte {
     private String titulo;
     private String descripcion;
     private Date f_creacion;
-    private String URLimagen;
+    private String urlImagen;
     private String propietario; //usuario
     private String tipo;
 
     public Aporte() {
     }
 
-    public Aporte(long id, String titulo, String deescripcion, Date f_creacion, String URLaporte, String propietario, String tipo) {
+    public Aporte(long id, String titulo, String descripcion, Date f_creacion, String urlImagen, String propietario, String tipo) {
         this.id = id;
         this.titulo = titulo;
-        this.descripcion = deescripcion;
+        this.descripcion = descripcion;
         this.f_creacion = f_creacion;
-        this.URLimagen = URLaporte;
+        this.urlImagen = urlImagen;
         this.propietario = propietario;
         this.tipo = tipo;
     }
@@ -56,12 +56,12 @@ public class Aporte {
         this.f_creacion = f_creacion;
     }
     
-    public String getURLimagen() {
-        return URLimagen;
+    public String getUrlImagen() {
+        return urlImagen;
     }
 
-    public void setURLimagen(String URLimagen) {
-        this.URLimagen = URLimagen;
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
     }
 
     public String getPropietario() {

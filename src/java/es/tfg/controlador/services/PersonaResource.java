@@ -43,16 +43,20 @@ public class PersonaResource {
     @Path("{usuario}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Persona update(Persona persona) {
-        this.personaDAO.actualizaPersona(persona);
-
-        return this.personaDAO.obtenPersona(persona.getUsuario());
+    public Persona update(Persona persona, @PathParam("usuario") String usu) {
+        String modificado = persona.getUsuario();
+        if(usu.equals(persona.getUsuario())){
+            this.personaDAO.actualizaPersona(persona);
+            return this.personaDAO.obtenPersona(persona.getUsuario());
+        }else{
+            return null;
+        }
     }
     
     @DELETE
     @Path("{usuario}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response remove(@PathParam("usuario") String usu) {
+    public Response remove(@PathParam("usuario") String usu) { 
         this.personaDAO.eliminaPersona(this.personaDAO.obtenPersona(usu));
 
         return Response.noContent().build();

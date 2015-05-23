@@ -34,7 +34,7 @@ public class TokenDAO {
                     Token tEliminar = null;
                     for(int i = 0; i<tokens.size();i++){
                         String sToken = (String) tokens.get(i)[0];
-                        Time create = (Time) tokens.get(i)[1];
+                        Date create = (Date) tokens.get(i)[1];
                         String idUsuario = (String) tokens.get(i)[2];
                         tEliminar = new Token(sToken, create, idUsuario);
                         sesion.delete(tEliminar);
@@ -104,6 +104,7 @@ public class TokenDAO {
                 //borra token
                 sesion.delete(t);
                 tx.commit();
+                t=null;
             }
             }
              

@@ -2,10 +2,6 @@ package es.tfg.controlador.security;
 
 import es.tfg.modelo.PersonasDAO;
 import es.tfg.modelo.TokenDAO;
-import java.io.IOException;
-
-import java.util.Base64;
-import java.util.StringTokenizer;
 
 public class AuthenticationService {
 
