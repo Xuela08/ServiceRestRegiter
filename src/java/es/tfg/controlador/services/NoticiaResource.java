@@ -50,8 +50,10 @@ public class NoticiaResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Aporte update(Aporte aporte, @PathParam("id") long id) {
         Aporte aporteId = this.aportesDAO.obtenAporte(id);
-        if(id == aporte.getId() && TIPO.equals(aporteId.getTipo())){
+        if(TIPO.equals(aporteId.getTipo())){
+            aporte.setId(id);
             aporte.setTipo(TIPO);
+            aporte.setF_creacion(aporteId.getF_creacion());
             this.aportesDAO.actualizaAporte(aporte);
             return this.aportesDAO.obtenAporte(id);
         }else{

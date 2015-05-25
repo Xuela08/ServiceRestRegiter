@@ -8,7 +8,8 @@ import org.hibernate.Transaction;
 public class PersonasDAO {
     private Session sesion; 
     private Transaction tx;  
-
+    public TokenDAO tokenDAO;
+    
     public Persona guardaPersona(Persona persona) throws HibernateException 
     { 
         String usu = "";
@@ -51,7 +52,7 @@ public class PersonasDAO {
     { 
         try 
         { 
-            iniciaOperacion(); 
+            iniciaOperacion();
             sesion.delete(persona); 
             tx.commit(); 
         } catch (HibernateException he) 
@@ -60,7 +61,10 @@ public class PersonasDAO {
             throw he; 
         } finally 
         { 
-            sesion.close(); 
+            sesion.close();
+            //Eliminar para invalidar token
+            tokenDAO = new TokenDAO();
+            tokenDAO.invalidaToken(persona.getUsuario());
         } 
     }  
 
@@ -87,6 +91,9 @@ public class PersonasDAO {
         { 
             iniciaOperacion(); 
             listaPersonas = sesion.createQuery("from Persona").list(); 
+            for(int i=0; i< listaPersonas.size();i++){
+                listaPersonas.get(i).setPassword(null);
+            }
         } finally 
         { 
             sesion.close(); 
