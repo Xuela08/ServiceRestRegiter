@@ -1,5 +1,7 @@
-package es.tfg.modelo;
+package es.tfg.modelo.DAO;
 
+import es.tfg.modelo.HibernateUtil;
+import es.tfg.modelo.Token;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;

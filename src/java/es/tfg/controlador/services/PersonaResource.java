@@ -1,6 +1,6 @@
 package es.tfg.controlador.services;
 
-import es.tfg.modelo.PersonasDAO;
+import es.tfg.modelo.DAO.PersonasDAO;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

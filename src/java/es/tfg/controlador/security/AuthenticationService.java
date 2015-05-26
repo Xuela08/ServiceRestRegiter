@@ -1,9 +1,9 @@
 package es.tfg.controlador.security;
 
 import es.tfg.modelo.Aporte;
-import es.tfg.modelo.AportesDAO;
-import es.tfg.modelo.PersonasDAO;
-import es.tfg.modelo.TokenDAO;
+import es.tfg.modelo.DAO.AportesDAO;
+import es.tfg.modelo.DAO.PersonasDAO;
+import es.tfg.modelo.DAO.TokenDAO;
 
 public class AuthenticationService {
 

@@ -1,5 +1,7 @@
-package es.tfg.modelo;
+package es.tfg.modelo.DAO;
 
+import es.tfg.modelo.Aporte;
+import es.tfg.modelo.HibernateUtil;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.HibernateException;

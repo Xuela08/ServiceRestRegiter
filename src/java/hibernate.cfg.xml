@@ -15,5 +15,6 @@
     <mapping resource="es/tfg/modelo/mapeos/Persona.hbm.xml"/>
     <mapping resource="es/tfg/modelo/mapeos/Token.hbm.xml"/>
     <mapping resource="es/tfg/modelo/mapeos/Aporte.hbm.xml"/>
+    <mapping resource="es/tfg/modelo/mapeos/Apunte.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

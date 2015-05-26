@@ -1,8 +1,8 @@
 package es.tfg.controlador.services;
 
 import es.tfg.modelo.Aporte;
-import es.tfg.modelo.AportesDAO;
-import es.tfg.modelo.PersonasDAO;
+import es.tfg.modelo.DAO.AportesDAO;
+import es.tfg.modelo.DAO.PersonasDAO;
 import java.net.URI;
 import java.util.List;
 import javax.ws.rs.Consumes;
@@ -23,12 +23,12 @@ import javax.ws.rs.core.UriInfo;
 public class NoticiaResource {
     
     private AportesDAO aportesDAO;
-    private PersonasDAO personasDAO;
+    //private PersonasDAO personasDAO;
     public static String TIPO = "Noticia";
     
     public NoticiaResource() {
         this.aportesDAO = new AportesDAO();
-        this.personasDAO = new PersonasDAO();
+        //this.personasDAO = new PersonasDAO();
     }
     
     @POST
