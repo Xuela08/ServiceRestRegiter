@@ -1,0 +1,51 @@
+<div class="login-page ng-scope"> 
+    <div class="row"> 
+        <div class="col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
+            <img src="images/flat-avatar.png" class="user-avatar"> 
+            <h1>Registro CoUJA <small>Colaboración UJAEN</small></h1>
+            <form role="form" name="registroForm">
+                <div class="row">
+                    <div class="form-conten col-md-6 col-lg-6">
+                        <h3>Datos de la cuenta</h3>
+                        <div class="form-group"> 
+                            <input type="text" class="form-control input-underline input-lg" placeholder="Usuario UJA" required ng-model="usuario"> 
+                            <label class="form-control input-underline input-lg" style="text-align: left"><span class="h1 small"></span>{{usuario}}@red.ujaen.es</label>
+                            <input type="password" class="form-control input-underline input-lg" id="" required placeholder="Password" ng-model="password">
+                            <input type="password" class="form-control input-underline input-lg" id="" required placeholder="Repetir password" ng-model="password2">
+                        </div> 
+                    </div>
+                    <div class="form-conten col-md-6 col-lg-6">
+                        <h3>Datos de la cuenta</h3>
+                        <div class="form-group"> 
+                            <input type="text" class="form-control input-underline input-lg" placeholder="Nombre" required ng-model="nombre"> 
+                            <input type="text" class="form-control input-underline input-lg" placeholder="Apellidos" required ng-model="apellidos">
+                            <md-radio-group layout="" layout-sm="column" ng-model="sexo">
+                                <h1 flex="20"><small>Sexo:</small></h1>
+                                <md-radio-button flex="10" value="Hombre" class="md-primary">Hombre</md-radio-button>
+                                <md-radio-button flex="10" value="Mujer" class="md-primary"> Mujer </md-radio-button>
+                            </md-radio-group>
+                        </div> 
+                    </div>
+                </div>
+                <!-- Barra de progreso indeterminada -->
+                <div layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular ng-show="progressVisibility" class="" md-mode="indeterminate"></md-progress-circular>
+                </div>
+                <div layout="" style="margin-bottom: 20px;" ng-show="correctVisibility" layout-sm="column">
+                    <div flex="25"></div>
+                    <md-whiteframe flex="50" class="md-whiteframe-z4" style="background-color: darkseagreen;" layout="" layout-align="center center">
+                        <h5 style="margin-bottom: 15px;">
+                            <span style="margin-right: -20px;">Se ha registrado correctamente.</span>
+                        </h5>
+                    </md-whiteframe>
+                </div>
+                <div ng-show="!progressVisibility" class="row">
+                    <button type="submit" class="btn btn-white btn-outline btn-lg btn-rounded" ng-disabled="!registroForm.$valid||correctVisibility" ng-click="registro()">Registro</button>&nbsp; 
+                    <a ui-sref="login" href="#/login">
+                        <button type="submit" class="btn btn-white btn-outline btn-lg btn-rounded ng-binding">Volver al Login</button>
+                    </a>
+                </div>
+            </form>
+        </div> 
+    </div> 
+</div>

@@ -24,6 +24,8 @@ public class RestAuthenticationFilter implements javax.servlet.Filter {
                     .getHeader(TOKEN_HEADER);
             String peticion = httpServletRequest.getMethod();
             String url = httpServletRequest.getPathInfo();
+            
+            
             AuthenticationService authenticationService = new AuthenticationService();
 
             //Si usuToken es null, el token no es correcto a expirado
@@ -33,6 +35,11 @@ public class RestAuthenticationFilter implements javax.servlet.Filter {
             if(authToken != null){
                 authoritationStatus = authenticationService
                     .authoritate(usuToken, peticion, url);
+            }else{
+                //en caso de registro debemos permitir acceder sin token
+                if(peticion.equals("POST")&&url.equals("/personas")){
+                    filter.doFilter(request, response);
+                }
             }
             
             if (authoritationStatus) {

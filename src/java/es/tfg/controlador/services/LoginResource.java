@@ -5,16 +5,20 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import es.tfg.modelo.Token;
 import es.tfg.modelo.DAO.TokenDAO;
+import java.io.IOException;
 import java.net.URI;
+import java.util.Base64;
+import java.util.StringTokenizer;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.HttpHeaders;
 
 @Path("acceso")
 public class LoginResource {
@@ -29,16 +33,32 @@ public class LoginResource {
     @Path("login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(@Context UriInfo uriInfo, @FormParam("username") String username, @FormParam("password") String password) {
-        Token newToken = this.tokenDAO.login(username, password);
+    public Response login(@Context UriInfo uriInfo, @HeaderParam("Authorization") String authCredentials) {
 
-        if (newToken != null) {
-            UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
-            URI newUri = uriBuilder.path(String.valueOf(newToken.getToken())).build();
+        if (authCredentials != null) {
+            final String encodedUserPassword = authCredentials.replaceFirst("Basic" + " ", "");
+            String usernameAndPassword = null;
+            try {
+                //Method method = methodInvoked.getMethod();
+                byte[] decodedBytes = Base64.getDecoder().decode(
+                        encodedUserPassword);
+                usernameAndPassword = new String(decodedBytes, "UTF-8");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            final StringTokenizer tokenizer = new StringTokenizer(
+                    usernameAndPassword, ":");
+            final String username = tokenizer.nextToken();
+            final String password = tokenizer.nextToken();
+            Token newToken = this.tokenDAO.login(username, password);
+            if (newToken != null) {
+                UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
+                URI newUri = uriBuilder.path(String.valueOf(newToken.getToken())).build();
 
-            return Response.created(newUri).entity(newToken).build();
+                return Response.created(newUri).entity(newToken).build();
+            }
         }
-        
+
         return Response.status(401).build();
     }
 

@@ -1,0 +1,60 @@
+<!--<form name="loginUserForm">
+    <fieldset>
+        <legend>Formulario de login con AngularJS utilizando cookies</legend>
+        <p>{{retorno}}</p>
+        <div class="row">
+            <div class="large-12 columns">
+                <label>Username</label>
+                <input type="text" required placeholder="Introduce tu usuario" ng-model="username">
+            </div>
+            <div class="large-12 columns">
+                <label>Password</label>
+                <input type="password" required placeholder="Introduce tu password" ng-model="password">
+            </div>
+ 
+            <button type="submit" ng-disabled="!loginUserForm.$valid" ng-click="login()" class="button expand round">Login</button>
+        </div>
+    </fieldset>
+</form>-->
+<div class="login-page">
+    <div class="row">
+        <div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
+            <img src="images/flat-avatar.png" class="user-avatar" />
+            <h1>Login CoUJA <small>Colaboración UJAEN</small></h1>
+            <form role="form" name="loginUserForm">
+                <div class="form-content">
+                    <div class="form-group">
+                        <input type="text" class="form-control input-underline input-lg" required placeholder="Usuario UJA" ng-model="username">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control input-underline input-lg" id="" required placeholder="Password" ng-model="password">
+                    </div>
+                </div>
+                <!-- Barra de progreso indeterminada -->
+                <div layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular ng-show="progressVisibility" class="" md-mode="indeterminate"></md-progress-circular>
+                </div>
+                <div layout="" style="margin-bottom: 20px;" ng-show="errorVisibility" layout-sm="column">
+                    <div flex="25"></div>
+                    <md-whiteframe flex="50" class="md-whiteframe-z4" style="background-color: crimson;" layout="" layout-align="center center">
+                        <h5 style="margin-bottom: 15px;">
+                            <span style="margin-right: -20px;">El usuario y la contraseña no coinciden</span>
+                            <a href="" ng-click="errorVisibility=false;">
+                                <ng-md-icon icon="close" style="fill: pink; margin-left: 100px;" size="20"></ng-md-icon> 
+                            </a>
+                        </h5>
+                    </md-whiteframe>
+                </div>
+                <div ng-show="!progressVisibility">
+                    <button type="submit" class="btn btn-white btn-outline btn-lg btn-rounded" ng-disabled="!loginUserForm.$valid" ng-click="login()">Login</button>
+
+                    <a ui-sref="registro" href="#/registro">
+                        <button type="submit" class="btn btn-white btn-outline btn-lg btn-rounded ng-binding">Registrarse</button>
+                    </a>
+                </div>
+            </form>
+
+        </div>	
+    </div>
+</div>
