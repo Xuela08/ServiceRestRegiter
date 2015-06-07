@@ -5,7 +5,8 @@ var app = angular.module('ClienteApp', [
     'ngCookies',
     'ngMaterial',
     'ngAnimate',
-    'ngMdIcons'
+    'ngMdIcons',
+    "brantwills.paging"
 ]);
 
 //damos configuración de ruteo a nuestro sistema de login
@@ -13,7 +14,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 
 
     $urlRouterProvider.otherwise('/login');
-    $urlRouterProvider.when('/inicio', '/inicio/noticias');
+    $urlRouterProvider.when('/colaborativa', '/colaborativa/noticias');
     $stateProvider
             .state('base', {
                 abstract: true,
@@ -30,28 +31,63 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             .state('registro', {
                 url: '/registro',
                 parent: 'base',
-                templateUrl: 'views/registro.html',
+                templateUrl: 'views/regis.html',
                 controller: 'registroController'
             })
-            .state('inicio', {
-                url: '/inicio',
+            .state('colaborativa', {
+                url: '/colaborativa',
                 parent: 'base',
-                templateUrl: 'views/inicio.html',
-                controller: 'inicioController'
+                templateUrl: 'views/colaborativa.html',
+                controller: 'colaborativaController'
             })
             .state('noticias', {
                 url: '/noticias',
-                parent: 'inicio',
-                templateUrl: 'views/inicio/noticias.html'
+                parent: 'colaborativa',
+                templateUrl: 'views/colaborativa/noticias.html'
+            })
+            .state('noticiasTodas', {
+                url: '/noticiasTodas',
+                parent: 'colaborativa',
+                templateUrl: 'views/colaborativa/noticias/todas.html',
+                controller: 'noticiasTodasController'
+            })
+            .state('noticiasNueva', {
+                url: '/noticiasNueva',
+                parent: 'colaborativa',
+                templateUrl: 'views/colaborativa/noticias/nueva.html',
+                controller: 'noticiasNuevaController'
+            })
+            .state('noticiasId', {
+                url: '/noticia/:noticiaId',
+                parent: 'colaborativa',
+                templateUrl: 'views/colaborativa/noticias/noticiaId.html',
+                controller: 'noticiaIdController'
+            })
+            .state('noticiasMias', {
+                url: '/misNoticias',
+                parent: 'colaborativa',
+                templateUrl: 'views/colaborativa/noticias/noticiasMias.html',
+                controller: 'noticiasMiasController'
+            })
+            .state('noticiasEditar', {
+                url: '/noticiasEditar/:noticiaId',
+                parent: 'colaborativa',
+                templateUrl: 'views/colaborativa/noticias/editar.html',
+                controller: 'noticiasEditarController'
+            })
+            .state('apuntes', {
+                url: '/apuntes',
+                parent: 'colaborativa',
+                templateUrl: 'views/colaborativa/apuntes.html'
             });
 
 }).config(function ($mdThemingProvider) {
-    var neonRedMap = $mdThemingProvider.extendPalette('blue', {
+    var pBlueMap = $mdThemingProvider.extendPalette('blue', {
         '500': '1976D2'
     });
-    $mdThemingProvider.definePalette('neonRed', neonRedMap);
+    $mdThemingProvider.definePalette('pBlueRed', pBlueMap);
     $mdThemingProvider.theme('default')
-            .primaryPalette('neonRed')
+            .primaryPalette('pBlueRed')
 });
 //  config(['$routeProvider', function ($routeProvider) {
 //        $routeProvider.
@@ -72,7 +108,7 @@ app.factory("auth", function ($cookies, $cookieStore, $location)
                     $cookies.token = data.token,
                     $cookies.caducidad = data.caducidad;
 
-            $location.path('/inicio/noticias');
+            $location.path('/colaborativa/noticias');
         },
         logout: function ()
         {
@@ -90,7 +126,7 @@ app.factory("auth", function ($cookies, $cookieStore, $location)
         checkStatus: function ()
         {
             //creamos un array con las rutas que queremos controlar
-            var rutasPrivadas = ["/inicio", "/registro", "/login"];
+            var rutasPrivadas = ["/colaborativa", "/registro", "/login"];
             if (this.in_array($location.path(), rutasPrivadas) && typeof ($cookies.token) == "undefined")
             {
                 $location.path("/login");
@@ -98,7 +134,7 @@ app.factory("auth", function ($cookies, $cookieStore, $location)
             //en el caso de que intente acceder al login y ya haya iniciado sesión lo mandamos a la home
             if (this.in_array("/login", rutasPrivadas) && typeof ($cookies.token) != "undefined")
             {
-                $location.path("/inicio");
+                $location.path("/colaborativa");
             }
         },
         in_array: function (needle, haystack)
@@ -131,3 +167,18 @@ app.factory("auth", function ($cookies, $cookieStore, $location)
 //        auth.checkStatus();
 //    })
 //})
+
+app.factory('verifyDelete', function ($mdDialog) {
+    return{
+        confirm: function (noticia)
+        {
+            var confirm = $mdDialog.confirm()
+                    .title('Confirmaci\u00F3n para ' + noticia.titulo)
+                    .content('\u00BFEst\u00E1s seguro de que deseas eliminar la noticia? ')
+                    .ariaLabel('Eliminar')
+                    .ok('Eliminar')
+                    .cancel('Cancelar');
+            return $mdDialog.show(confirm);
+        }
+    }
+});

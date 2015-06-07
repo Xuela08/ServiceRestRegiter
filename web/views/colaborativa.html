@@ -1,0 +1,27 @@
+<div class="dashboard-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+
+                <div class="text-center">
+                    <h2 class="brand">Login CoUJA <small>Colaboración UJAEN</small></h2>
+                    <a rel="Datos perfil" ui-sref="perfil"><img src="images/flat-avatar.png" class="user-avatar" /></a><br />
+                    <a ng-click="logout()" class="btn btn-white btn-outline btn-rounded btn-sm">Logout</a>
+                </div>
+
+                <ul class="nav nav-sidebar">
+                    <li ng-class="{
+                    active: ($state.includes('noticias')||$state.includes('noticiasTodas')||$state.includes('noticiasNueva')||$state.includes('noticiasId')||$state.includes('noticiasMias'))
+                }"><a ui-sref="noticias">Noticias </a></li>
+                    <li ng-class="{
+                    active: $state.includes('apuntes')
+                }"><a ui-sref="apuntes">Apuntes </a></li>
+                <li><a target="_blank" href="http://www10.ujaen.es/">Universidad de Jaén</a></li>
+                </ul>
+
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ui-view>
+            </div>
+        </div>
+    </div>
+</div>

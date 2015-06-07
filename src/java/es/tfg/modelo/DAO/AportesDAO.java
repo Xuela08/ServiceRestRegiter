@@ -98,7 +98,55 @@ public class AportesDAO {
 
         return listaAporte;
     }
+    
+    public long getTam(String tipo) throws HibernateException {
+        long tam = 0;
 
+        try {
+            iniciaOperacion();
+            Query query = sesion.createQuery("SELECT count(*) FROM Aporte A WHERE A.tipo = :tipo_id");
+            query.setParameter("tipo_id",tipo);
+            tam = (long)query.uniqueResult();
+        } finally {
+            sesion.close();
+        }
+
+        return tam;
+    }
+
+    public List<Aporte> obtenListaAporte(String tipo, int inicio, int tamPagina) throws HibernateException {
+        List<Aporte> listaAporte = null;
+
+        try {
+            iniciaOperacion();
+            Query query = sesion.createQuery("FROM Aporte A WHERE A.tipo = :tipo_id");
+            query.setParameter("tipo_id",tipo);
+            query.setFirstResult(inicio);
+            query.setMaxResults(tamPagina);
+            listaAporte = query.list();
+        } finally {
+            sesion.close();
+        }
+
+        return listaAporte;
+    }   
+    
+    public List<Aporte> obtenAportesUsuario(String tipo, String usuario) throws HibernateException {
+        List<Aporte> listaAporte = null;
+
+        try {
+            iniciaOperacion();
+            Query query = sesion.createQuery("FROM Aporte A WHERE A.tipo = :tipo_id AND A.propietario = :usuario");
+            query.setParameter("tipo_id",tipo);
+            query.setParameter("usuario",usuario);
+            listaAporte = query.list();
+        } finally {
+            sesion.close();
+        }
+
+        return listaAporte;
+    }   
+    
     private void iniciaOperacion() throws HibernateException {
         sesion = HibernateUtil.getSessionFactory().openSession();
         tx = sesion.beginTransaction();

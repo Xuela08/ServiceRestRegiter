@@ -1,0 +1,30 @@
+<div>
+    <a ui-sref="noticias" class="pull-right btn btn-primary btn-outline btn-rounded">Volver a inicio</a>
+    <h1>Noticias <small>Nueva noticia</small></h1>
+
+</div>
+
+<div class="jumbotron">
+    <div class="container">
+        <form name="noticiaForm">
+            <md-input-container flex="">
+                <label>Título de la noticia</label>
+                <input ng-model="noticia.titulo" placeholder="Titulo" required>
+            </md-input-container>
+            <div ng-if="noticia.urlImagen != ''">
+                <img src="{{noticia.urlImagen}}" class="img-responsive">
+                <br>
+            </div>
+            <md-input-container flex="">
+                <label>Dirección URL de la imagen</label>
+                <input ng-model="noticia.urlImagen" placeholder="Dirección imagen" required>
+            </md-input-container>
+            <md-input-container flex="">
+                <label>Contenido noticia</label>
+                <textarea ng-model="noticia.descripcion" columns="1" md-maxlength="600" required></textarea>
+            </md-input-container>
+            <h4 class="pull-right"><small>Creado por {{noticia.idUsuario = idUsuario}}</small></h4>
+            <button type="submit" class="btn btn-success btn-lg btn-rounded" ng-disabled="!noticiaForm.$valid" ng-click="submitNoticias()">Crear</button>
+        </form>
+    </div>
+</div>
