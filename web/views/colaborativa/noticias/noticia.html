@@ -1,0 +1,16 @@
+<div>
+    <a ui-sref="noticiasTodas" class="pull-right btn btn-primary btn-outline btn-rounded">Volver a noticias</a>
+    <h1>Noticias <small>por {{noticia.propietario}}</small></h1>
+</div>
+
+<div class="jumbotron">
+    <div class="container">
+        <h2>{{noticia.titulo}}</h2>
+        <img ng-src="{{noticia.baseIMG}}" class="md-avatar img-responsive" alt="Imagen noticia {{noticia.id}}">
+        <md-list>
+            <md-list-item class="md-3-line" ng-repeat="item in arrayDescripcion">
+                <p>{{ item }}</p>
+            </md-list-item>
+        </md-list>
+    </div>
+</div>

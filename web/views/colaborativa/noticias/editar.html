@@ -11,20 +11,25 @@
                 <label>Título de la noticia</label>
                 <input ng-model="noticia.titulo" placeholder="Titulo" required>
             </md-input-container>
-            <div ng-if="noticia.urlImagen != ''">
-                <img src="{{noticia.urlImagen}}" class="img-responsive">
-                <br>
-            </div>
             <md-input-container flex="">
-                <label>Dirección URL de la imagen</label>
-                <input ng-model="noticia.urlImagen" placeholder="Dirección imagen" required>
+                <div flow-init flow-files-added="processFiles($files)">
+                    <input ng-show="!$flow.files.length" type="file" flow-btn>
+
+                    <img class="img-responsive" ng-show="$flow.files.length" flow-img="$flow.files[0]" />
+                    <br>
+                    <a href="#" class="btn btn-danger" ng-show="$flow.files.length"
+                       ng-click="$flow.cancel();
+                           noIMG()">
+                        Remove
+                    </a>
+                </div>
             </md-input-container>
             <md-input-container flex="">
                 <label>Contenido noticia</label>
                 <textarea ng-model="noticia.descripcion" columns="1" md-maxlength="600" required></textarea>
             </md-input-container>
-            <h4 class="pull-right"><small>Creado por {{noticia.idUsuario = idUsuario}}</small></h4>
-            <button type="submit" class="btn btn-success btn-lg btn-rounded" ng-disabled="!noticiaForm.$valid" ng-click="submitNoticias()">Editar</button>
+            <h4 class="pull-right"><small>Creado por{{noticia.idUsuario = idUsuario}}</small></h4>
+            <button type="submit" class="btn btn-success btn-lg btn-rounded" ng-disabled="(!noticiaForm.$valid) || (!valIMG)" ng-click="submitNoticias()">Editar</button>
             <button type="submit" class="btn btn-danger btn-lg btn-rounded" ng-click="cancelarNoticias()">Cancelar</button>
         </form>
     </div>

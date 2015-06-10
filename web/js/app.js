@@ -6,7 +6,8 @@ var app = angular.module('ClienteApp', [
     'ngMaterial',
     'ngAnimate',
     'ngMdIcons',
-    "brantwills.paging"
+    "brantwills.paging",
+    "flow"
 ]);
 
 //damos configuración de ruteo a nuestro sistema de login
@@ -48,25 +49,25 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             .state('noticiasTodas', {
                 url: '/noticiasTodas',
                 parent: 'colaborativa',
-                templateUrl: 'views/colaborativa/noticias/todas.html',
+                templateUrl: 'views/colaborativa/noticias/todasNoticias.html',
                 controller: 'noticiasTodasController'
             })
             .state('noticiasNueva', {
                 url: '/noticiasNueva',
                 parent: 'colaborativa',
-                templateUrl: 'views/colaborativa/noticias/nueva.html',
+                templateUrl: 'views/colaborativa/noticias/crear.html',
                 controller: 'noticiasNuevaController'
             })
             .state('noticiasId', {
                 url: '/noticia/:noticiaId',
                 parent: 'colaborativa',
-                templateUrl: 'views/colaborativa/noticias/noticiaId.html',
+                templateUrl: 'views/colaborativa/noticias/noticia.html',
                 controller: 'noticiaIdController'
             })
             .state('noticiasMias', {
                 url: '/misNoticias',
                 parent: 'colaborativa',
-                templateUrl: 'views/colaborativa/noticias/noticiasMias.html',
+                templateUrl: 'views/colaborativa/noticias/misNoticias.html',
                 controller: 'noticiasMiasController'
             })
             .state('noticiasEditar', {

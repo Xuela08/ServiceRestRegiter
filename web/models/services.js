@@ -80,7 +80,7 @@ angular.module('ClienteApp.services', [])
                     data: {
                         titulo: $scope.noticia.titulo,
                         descripcion: descripcion,
-                        urlImagen: $scope.noticia.urlImagen,
+                        baseIMG: $scope.base64,
                         propietario: $cookies.idUsuario
                     },
                     url: "http://localhost:8080/ServiceRestRegiter/rest/noticias"
@@ -122,7 +122,7 @@ angular.module('ClienteApp.services', [])
                     data: {
                         titulo: $scope.noticia.titulo,
                         descripcion: descripcion,
-                        urlImagen: $scope.noticia.urlImagen,
+                        baseIMG: $scope.base64,
                         propietario: $cookies.idUsuario
                     },
                     url: 'http://localhost:8080/ServiceRestRegiter/rest/noticias/' + $scope.noticia.id

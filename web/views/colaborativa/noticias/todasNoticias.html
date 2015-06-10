@@ -7,14 +7,13 @@
     <md-list-item class="md-3-line" ng-repeat="item in todos">
         <div class="jumbotron">
             <div class="container">
-                <img ng-src="{{item.urlImagen}}" class="md-avatar img-responsive" alt="Imagen noticia {{item.id}}">
+                <img ng-src="{{item.baseIMG}}" class="md-avatar img-responsive" alt="Imagen noticia {{item.id}}">
                 <h3>{{ item.titulo}}</h3>
-                <script>$scope.aux = item.descripcion + " añado algo"</script>
                 <p ng-if="item.descripcion.length > 100">{{ item.descripcion.substr(0, 100) + "..."}}</p>
                 <p ng-if="item.descripcion.length<=100">{{ item.descripcion}}</p>
                 <br />
                 <h4 class="pull-right"><small>Creador: {{item.propietario}}</small></h4>
-                <a ng-href="./cliente.html#/main/noticia/{{item.id}}" class="btn btn-primary btn-lg btn-outline btn-rounded">Ver noticia</a>
+                <a ng-href="./cliente.html#/colaborativa/noticia/{{item.id}}" class="btn btn-primary btn-lg btn-outline btn-rounded">Ver noticia</a>
             </div>
         </div>
     </md-list-item>

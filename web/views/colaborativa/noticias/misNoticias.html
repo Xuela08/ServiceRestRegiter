@@ -18,9 +18,9 @@
                 <tbody>
                     <tr ng-repeat="item in noticias">
                         <td data-title="Título">{{item.titulo}}</td>
-                        <td data-title="Imagen"><img ng-src="{{item.urlImagen}}" style="width: 60px;" class="md-avatar img-responsive" alt="Imagen noticia {{item.id}}"></td>
+                        <td data-title="Imagen"><img ng-src="{{item.baseIMG}}" style="width: 60px;" class="md-avatar img-responsive" alt="Imagen noticia {{item.id}}"></td>
                         <td data-title="Operaciones" class="text-center">
-                            <a ng-href="./cliente.html#/main/noticiasEditar/{{item.id}}"><ng-md-icon icon="edit" style="fill: #3ca2e0;" size="20"></ng-md-icon> </a>
+                            <a ng-href="./cliente.html#/colaborativa/noticiasEditar/{{item.id}}"><ng-md-icon icon="edit" style="fill: #3ca2e0;" size="20"></ng-md-icon> </a>
                             <a ng-click="borrarNoticias(item)"><ng-md-icon icon="delete" style="fill: #3ca2e0;" size="20"></ng-md-icon> </a>
                         </td>
                     </tr>

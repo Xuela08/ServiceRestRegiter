@@ -6,9 +6,9 @@
       <generator class="identity"/>
     </id>
     <property column="TITULO" name="titulo" type="string"/>
-    <property column="DESCRIPCION" name="descripcion" type="string"/>
+    <property column="DESCRIPCION" name="descripcion" type="string" length="1024"/>
     <property column="F_CREACION" name="f_creacion" type="timestamp"/>
-    <property column="URLIMAGEN" name="urlImagen" type="string"/>
+    <property column="BASEIMG" name="baseIMG" type="string" length="8388608"/>
     <property column="PROPIETARIO" name="propietario" type="string"/>
     <property column="TIPO" name="tipo" type="string"/>
   </class>

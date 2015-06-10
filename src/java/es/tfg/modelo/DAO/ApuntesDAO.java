@@ -41,7 +41,7 @@ public class ApuntesDAO {
             Apunte apuntesModificar = (Apunte) sesion.get(Apunte.class, apunte.getId());
             apuntesModificar.getDatosGenerales().setTitulo(apunte.getDatosGenerales().getTitulo());
             apuntesModificar.getDatosGenerales().setDescripcion(apunte.getDatosGenerales().getDescripcion());
-            apuntesModificar.getDatosGenerales().setUrlImagen(apunte.getDatosGenerales().getUrlImagen());
+            apuntesModificar.getDatosGenerales().setBaseIMG(apunte.getDatosGenerales().getBaseIMG());
             apuntesModificar.setCarrera(apunte.getCarrera());
             apuntesModificar.setCurso(apunte.getCurso());
             apuntesModificar.setAsignatura(apunte.getAsignatura());
