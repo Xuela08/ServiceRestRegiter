@@ -13,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -65,13 +66,13 @@ public class ApunteResource {
         return Response.noContent().build();
     }
     
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Apunte> getAll() {
-        List<Apunte> list = this.apuntesDAO.obtenApunte();
-
-        return list;
-    }
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public List<Apunte> getAll() {
+//        List<Apunte> list = this.apuntesDAO.obtenApunte();
+//
+//        return list;
+//    }
     
     @GET
     @Path("{id}")
@@ -84,4 +85,49 @@ public class ApunteResource {
 
         return null;
     }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Apunte> getList(@QueryParam("carrera") String carrera, @QueryParam("curso") int curso, @QueryParam("asignatura") String asignatura) {
+        List<Apunte> list;
+        if(carrera == null){
+            list = this.apuntesDAO.obtenApunte();
+        }else{
+            list = this.apuntesDAO.obtenApunteFiltrado(carrera, curso, asignatura);
+        }
+        
+        return list;
+    }
+    
+    
+    @GET
+    @Path("propiedades/carreras")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> getPropiedadCarreras() {
+        return this.apuntesDAO.getCarreras();
+    }
+    
+    @GET
+    @Path("propiedades/{carrera}/cursos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Integer> getPropiedadCursos(@PathParam("carrera") String carrera) {
+        return this.apuntesDAO.getCursos(carrera);
+    }
+    
+    @GET
+    @Path("propiedades/{carrera}/{curso}/asignaturas")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> getPropiedadAsignaturas(@PathParam("carrera") String carrera, @PathParam("curso") int curso) {
+        return this.apuntesDAO.getAsignaturas(carrera, curso);
+    }
+    
+    @GET
+    @Path("propietario")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Apunte> getAllUser(@QueryParam("usuario") String usuario) {
+        List<Apunte> list = (List<Apunte>)this.apuntesDAO.obtenApuntesUsuario(TIPO, usuario);
+
+        return list;
+    }
+    
 }

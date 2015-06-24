@@ -30,5 +30,6 @@
         <filter-name>AuthenticationFilter</filter-name>
         <url-pattern>/rest/personas/*</url-pattern>
         <url-pattern>/rest/noticias/*</url-pattern>
+        <url-pattern>/rest/apuntes/*</url-pattern>
     </filter-mapping>
 </web-app>

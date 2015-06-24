@@ -1,0 +1,12 @@
+<div>
+    <a ui-sref="apuntesTodos" class="pull-right btn btn-primary btn-outline btn-rounded">Volver a apuntes</a>
+    <h1>Apunte <small>aportado por {{apunte.datosGenerales.propietario}}</small></h1>
+</div>
+
+<div class="jumbotron">
+    <div class="container">
+        <h2>{{apunte.datosGenerales.titulo}}</h2>
+        <p>{{ apunte.datosGenerales.descripcion }}</p>
+        <p> Fecha: {{f_creacion[2]}}/{{f_creacion[1]}}/{{f_creacion[3]}}</p>
+        <p> Descarga: <a target="blanck" href="{{apunte.urlDescarga}}">Pinche para ir a la descarga</a> </p>
+</div>

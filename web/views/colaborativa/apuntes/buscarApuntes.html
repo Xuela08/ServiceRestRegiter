@@ -1,0 +1,124 @@
+<div style="display: {{visibilidadCarreras}}">
+    <div>
+        <a ui-sref="apuntes" class="pull-right btn btn-primary btn-outline btn-rounded">Volver a inicio</a>
+        <h1>Apuntes <small>Buscar apuntes</small></h1>
+
+    </div>
+    <div class="jumbotron">
+        <div class="container">
+            <form name="noticiaForm">
+                <md-input-container flex="">
+                    <input ng-model="filC" ng-change="filteri18n(carreras, filC)" placeholder="Buscar carrera">
+                </md-input-container>
+            </form>
+            <div class="table-responsive-vertical shadow-z-1">
+                <!-- Table starts here -->
+                <table id="table" class="table table-hover table-mc-light-blue">
+                    <thead>
+                        <tr>
+                            <th>Carreras</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">El Nº de carreras disponibles: {{filtrado.length}}</td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr ng-repeat="c in filtrado" ng-style="{color:($odd?'#1976D2':'#009688')}">
+                            <td ng-click="carreraSeleccionada(c)">{{c}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display: {{visibilidadCursos}}">
+    <div>
+        <a ui-sref="apuntes" class="pull-right btn btn-primary btn-outline btn-rounded">Volver a inicio</a>
+        <h1>Apuntes <small>Buscar apuntes</small></h1>
+
+    </div>
+    <div class="jumbotron">
+        <h3>{{carreraSeleccionada}}</h3>
+        <div class="container">
+            <div class="table-responsive-vertical shadow-z-1">
+                <!-- Table starts here -->
+                <table id="table" class="table table-hover table-mc-light-blue">
+                    <thead>
+                        <tr>
+                            <th>Cursos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="c in cursos" ng-style="{color:($odd?'#1976D2':'#009688')}">
+                            <td ng-click="cursoSeleccionado(c)">{{c}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display: {{visibilidadAsignaturas}}">
+    <div>
+        <a ui-sref="apuntes" class="pull-right btn btn-primary btn-outline btn-rounded">Volver a inicio</a>
+        <h1>Apuntes <small>Buscar apuntes</small></h1>
+
+    </div>
+    <div class="jumbotron">
+        <h3>Curso {{cursoSeleccionado}} de {{carreraSeleccionada}}</h3>
+        <div class="container">
+            <div class="table-responsive-vertical shadow-z-1">
+                <!-- Table starts here -->
+                <table id="table" class="table table-hover table-mc-light-blue">
+                    <thead>
+                        <tr>
+                            <th>Asignaturas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="c in asignaturas" ng-style="{color:($odd?'#1976D2':'#009688')}">
+                            <td ng-click="asignaturaSeleccionada(c)">{{c}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display: {{visibilidadApuntes}}">
+    <div>
+        <a ui-sref="apuntes" class="pull-right btn btn-primary btn-outline btn-rounded">Volver a inicio</a>
+        <h1>Apuntes <small>Buscar apuntes</small></h1>
+
+    </div>
+    <div class="jumbotron">
+        <h3>{{asignaturaSeleccionada}} de {{carreraSeleccionada}}</h3>
+        <div class="container">
+            <div class="table-responsive-vertical shadow-z-1">
+                <!-- Table starts here -->
+                <table id="table" class="table table-hover table-mc-light-blue">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Operación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="c in listApuntes" ng-style="{color:($odd?'#1976D2':'#009688')}">
+                            <td>{{c.datosGenerales.titulo}}</td>
+                            <td>{{c.datosGenerales.descripcion}}</td>
+                            <td class="text-center">
+                                <a ng-href="./cliente.html#/colaborativa/apunte/{{c.id}}"><ng-md-icon icon="remove_red_eye" style="fill: #3ca2e0;" size="20"></ng-md-icon> </a>
+                                <a target="_blank" href="{{c.urlDescarga}}"><ng-md-icon icon="file_download" style="fill: #3ca2e0;" size="20"></ng-md-icon> </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

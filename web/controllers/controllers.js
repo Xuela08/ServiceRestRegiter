@@ -394,4 +394,326 @@ angular.module('ClienteApp.controllers', []).
                 $location.path('colaborativa/misNoticias');
             }
 
+        }).
+        controller('ApuntesTodosController', function ($scope, apuntesAPIservice, auth) {
+            $scope.visibilidadCarreras = "block";
+            $scope.visibilidadCursos = "none";
+            $scope.visibilidadAsignaturas = "none";
+            $scope.visibilidadApuntes = "none";
+            $scope.filC = "";
+            $scope.filteri18n = function (array, expression) {
+                var filtra = [];
+                $scope.filtrado = array;
+                /** Transforma el texto quitando todos los acentos diéresis, etc. **/
+                function normalize(texto) {
+                    //texto = texto.replace(/[áàäâ]/g, "a");
+                    texto = texto.replace(/[\u00e1\u00c1]/g, "a");
+                    //texto = texto.replace(/[éèëê]/g, "e");
+                    texto = texto.replace(/[\u00e9\u00c9]/g, "e");
+                    //texto = texto.replace(/[íìïî]/g, "i");
+                    texto = texto.replace(/[\u00ed\u00cd]/g, "i");
+                    //texto = texto.replace(/[óòôö]/g, "o");
+                    texto = texto.replace(/[\u00f3\u00d3]/g, "o");
+                    //texto = texto.replace(/[úùüü]/g, "u");
+                    texto = texto.replace(/[\u00fa\u00da]/g, "u");
+                    texto = texto.toUpperCase();
+                    return texto;
+                }
+
+                /** Esta función es el comparator en el filter **/
+                function comparador(actual, expected) {
+                    if (normalize(actual).indexOf(normalize(expected)) >= 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                var index;
+                for (index = 0; index < array.length; index++) {
+                    if (comparador(array[index], expression)) {
+                        filtra.push(array[index]);
+                    }
+                }
+
+                $scope.filtrado = filtra;
+            }
+            $scope.cargarCarreras = function () {
+                var response = apuntesAPIservice.getCarreras();
+                response.success(json = function (data, status, headers, config) {
+                    $scope.carreras = data;
+                    $scope.filtrado = data;
+                    $scope.status = status;
+                });
+                response.error(function (data, status, headers, config) {
+                    $scope.data = data;
+                    alert("incorrecto" + status);
+                    if (status == "401") {
+                        alert("No estás autorizado");
+                        auth.logout();
+                    }
+                    else if (status == "404") {
+                        alert("Servicio no encontrado, hable con administracion");
+                    }
+                    else if (status == "500") {
+                        alert("Error con el servidor, intentelo mas tarde");
+                    }
+                    else {
+                        alert("Ha ocurrido un error inesperado");
+                    }
+                });
+            };
+            $scope.cargarCarreras();
+            //cambiamos a cursos
+            $scope.carreraSeleccionada = function (c) {
+                $scope.carreraSeleccionada = c;
+                $scope.visibilidadCarreras = "none";
+                $scope.visibilidadCursos = "block";
+                var response1 = apuntesAPIservice.getCursos($scope.carreraSeleccionada);
+                response1.success(json = function (data, status, headers, config) {
+                    $scope.cursos = data;
+                    $scope.status = status;
+                });
+                response1.error(function (data, status, headers, config) {
+                    $scope.data = data;
+                    alert("incorrecto" + status);
+                    if (status == "401") {
+                        alert("No estás autorizado");
+                        auth.logout();
+                    }
+                    else if (status == "404") {
+                        alert("Servicio no encontrado, hable con administracion");
+                    }
+                    else if (status == "500") {
+                        alert("Error con el servidor, intentelo mas tarde");
+                    }
+                    else {
+                        alert("Ha ocurrido un error inesperado");
+                    }
+                });
+            };
+            $scope.cursoSeleccionado = function (c) {
+                $scope.cursoSeleccionado = c;
+                $scope.visibilidadCursos = "none";
+                $scope.visibilidadAsignaturas = "block";
+                var response1 = apuntesAPIservice.getAsignatura($scope.carreraSeleccionada, $scope.cursoSeleccionado);
+                response1.success(json = function (data, status, headers, config) {
+                    $scope.asignaturas = data;
+                    $scope.status = status;
+                });
+                response1.error(function (data, status, headers, config) {
+                    $scope.data = data;
+                    alert("incorrecto" + status);
+                    if (status == "401") {
+                        alert("No estás autorizado");
+                        auth.logout();
+                    }
+                    else if (status == "404") {
+                        alert("Servicio no encontrado, hable con administracion");
+                    }
+                    else if (status == "500") {
+                        alert("Error con el servidor, intentelo mas tarde");
+                    }
+                    else {
+                        alert("Ha ocurrido un error inesperado");
+                    }
+                });
+            };
+            $scope.asignaturaSeleccionada = function (c) {
+                $scope.asignaturaSeleccionada = c;
+                $scope.visibilidadAsignaturas = "none";
+                $scope.visibilidadApuntes = "block";
+                var response1 = apuntesAPIservice.getApuntes($scope.carreraSeleccionada, $scope.cursoSeleccionado, $scope.asignaturaSeleccionada);
+                response1.success(json = function (data, status, headers, config) {
+                    $scope.listApuntes = data;
+                    $scope.status = status;
+                });
+                response1.error(function (data, status, headers, config) {
+                    $scope.data = data;
+                    alert("incorrecto" + status);
+                    if (status == "401") {
+                        alert("No estás autorizado");
+                        auth.logout();
+                    }
+                    else if (status == "404") {
+                        alert("Servicio no encontrado, hable con administracion");
+                    }
+                    else if (status == "500") {
+                        alert("Error con el servidor, intentelo mas tarde");
+                    }
+                    else {
+                        alert("Ha ocurrido un error inesperado");
+                    }
+                });
+            };
+        }).
+        controller('ApuntesSubirController', function ($scope, $cookies, apuntesAPIservice, auth, $location) {
+            $scope.idUsuario = $cookies.idUsuario;
+            $scope.mostrarCurso = true;
+            var response = apuntesAPIservice.getCarreras();
+            response.success(json = function (data, status, headers, config) {
+                $scope.carreras = data;
+                $scope.status = status;
+            });
+            response.error(function (data, status, headers, config) {
+                $scope.data = data;
+                alert("incorrecto" + status);
+                if (status == "401") {
+                    alert("No estás autorizado");
+                    auth.logout();
+                }
+                else if (status == "404") {
+                    alert("Servicio no encontrado, hable con administracion");
+                }
+                else if (status == "500") {
+                    alert("Error con el servidor, intentelo mas tarde");
+                }
+                else {
+                    alert("Ha ocurrido un error inesperado");
+                }
+            });
+            $scope.obtenerCursosCarrera = function (carrera) {
+                var response1 = apuntesAPIservice.getCursos(carrera);
+                response1.success(json = function (data, status, headers, config) {
+                    $scope.cursos = data;
+                    $scope.status = status;
+                });
+                response1.error(function (data, status, headers, config) {
+                    $scope.data = data;
+                    if (status == "401") {
+                        alert("No estás autorizado");
+                        auth.logout();
+                    }
+                    else if (status == "500") {
+                        alert("Error con el servidor, intentelo mas tarde");
+                    }
+                });
+            };
+            $scope.obtenerAsignaturaCarrera = function (carrera, curso) {
+                var response1 = apuntesAPIservice.getAsignatura(carrera, curso);
+                response1.success(json = function (data, status, headers, config) {
+                    $scope.asignaturas = data;
+                    $scope.status = status;
+                });
+                response1.error(function (data, status, headers, config) {
+                    $scope.data = data;
+                    if (status == "401") {
+                        alert("No estás autorizado");
+                        auth.logout();
+                    }
+                    else if (status == "500") {
+                        alert("Error con el servidor, intentelo mas tarde");
+                    }
+                });
+            };
+            $scope.submitApunte = function () {
+                var response1 = apuntesAPIservice.addApunte($scope);
+                response1.success(json = function (data, status, headers, config) {
+                    $scope.noticia = data;
+                    $scope.status = status;
+                    $location.path('/colaborativa/apuntes');
+                });
+                response1.error(function (data, status, headers, config) {
+                    $scope.data = data;
+                    alert("incorrecto" + status);
+                    if (status == "401") {
+                        alert("No estás autorizado");
+                        auth.logout();
+                    }
+                    else if (status == "404") {
+                        alert("Servicio no encontrado, hable con administracion");
+                    }
+                    else if (status == "500") {
+                        alert("Error con el servidor, intentelo mas tarde");
+                    }
+                    else {
+                        alert("Ha ocurrido un error inesperado");
+                    }
+                });
+            };
+        }).
+        controller('apunteIdController', function ($scope, apuntesAPIservice, auth, $stateParams) {
+            var response = apuntesAPIservice.getApunte($stateParams.apunteId);
+            response.success(json = function (data, status, headers, config) {
+                $scope.apunte = data;
+                var dateCreacion = new Date();
+                dateCreacion.setTime(data.datosGenerales.f_creacion);
+                $scope.f_creacion = dateCreacion.toString().split(" ");
+
+
+                $scope.status = status;
+            });
+            response.error(function (data, status, headers, config) {
+                $scope.data = data;
+                alert("incorrecto" + status);
+                if (status == "401") {
+                    alert("No estás autorizado");
+                    auth.logout();
+                }
+                else if (status == "404") {
+                    alert("Servicio no encontrado, hable con administracion");
+                }
+                else if (status == "500") {
+                    alert("Error con el servidor, intentelo mas tarde");
+                }
+                else {
+                    alert("Ha ocurrido un error inesperado");
+                }
+            });
+        }).
+        controller('apuntesMiosController', function ($scope, apuntesAPIservice, auth, verifyDeleteApunte, $location) {
+            
+            $scope.cargarApuntes = function () {
+                var response = apuntesAPIservice.getApunteMios();
+                response.success(json = function (data, status, headers, config) {
+                    $scope.apuntes = data;
+                    $scope.status = status;
+                });
+                response.error(function (data, status, headers, config) {
+                    $scope.data = data;
+                    if (status == "401") {
+                        alert("No estás autorizado");
+                        auth.logout();
+                    }
+                    else if (status == "404") {
+                        alert("Servicio no encontrado, hable con administracion");
+                    }
+                    else if (status == "500") {
+                        alert("Error con el servidor, intentelo mas tarde");
+                    }
+                    else {
+                        alert("Ha ocurrido un error inesperado");
+                    }
+                });
+            }
+            $scope.cargarApuntes();
+
+            $scope.borrarapunte = function (apunte) {
+                verifyDeleteApunte.confirm(apunte).then(function () {
+                    var responseDelete = apuntesAPIservice.eliminarApunte(apunte.id);
+                    responseDelete.success(json = function (data, status, headers, config) {
+                        $scope.noticias = data;
+                        $scope.status = status;
+
+                        $scope.cargarApuntes();
+                    });
+                    responseDelete.error(function (data, status, headers, config) {
+                        $scope.data = data;
+                        if (status == "401") {
+                            alert("No estás autorizado");
+                            auth.logout();
+                        }
+                        else if (status == "404") {
+                            alert("Servicio no encontrado, hable con administracion");
+                        }
+                        else if (status == "500") {
+                            alert("Error con el servidor, intentelo mas tarde");
+                        }
+                        else {
+                            alert("Ha ocurrido un error inesperado");
+                        }
+                    });
+                });
+            }
+
+
         });

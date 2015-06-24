@@ -24,12 +24,10 @@ import javax.ws.rs.core.UriInfo;
 public class NoticiaResource {
 
     private AportesDAO aportesDAO;
-    //private PersonasDAO personasDAO;
     public static String TIPO = "Noticia";
 
     public NoticiaResource() {
         this.aportesDAO = new AportesDAO();
-        //this.personasDAO = new PersonasDAO();
     }
 
     @POST

@@ -38,7 +38,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             .state('colaborativa', {
                 url: '/colaborativa',
                 parent: 'base',
-                templateUrl: 'views/colaborativa.html',
+                templateUrl: 'views/colabora.html',
                 controller: 'colaborativaController'
             })
             .state('noticias', {
@@ -55,7 +55,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             .state('noticiasNueva', {
                 url: '/noticiasNueva',
                 parent: 'colaborativa',
-                templateUrl: 'views/colaborativa/noticias/crear.html',
+                templateUrl: 'views/colaborativa/noticias/nueva.html',
                 controller: 'noticiasNuevaController'
             })
             .state('noticiasId', {
@@ -73,13 +73,37 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             .state('noticiasEditar', {
                 url: '/noticiasEditar/:noticiaId',
                 parent: 'colaborativa',
-                templateUrl: 'views/colaborativa/noticias/editar.html',
+                templateUrl: 'views/colaborativa/noticias/edita.html',
                 controller: 'noticiasEditarController'
             })
             .state('apuntes', {
                 url: '/apuntes',
                 parent: 'colaborativa',
-                templateUrl: 'views/colaborativa/apuntes.html'
+                templateUrl: 'views/colaborativa/apunte.html'
+            })
+            .state('apuntesTodos', {
+                url: '/apuntesTodos',
+                parent: 'colaborativa',
+                templateUrl: 'views/colaborativa/apuntes/buscarApuntes.html',
+                controller: 'ApuntesTodosController'
+            })
+            .state('apuntesSubir', {
+                url: '/apuntesSubir',
+                parent: 'colaborativa',
+                templateUrl: 'views/colaborativa/apuntes/subir.html',
+                controller: 'ApuntesSubirController'
+            })
+            .state('apuntesId', {
+                url: '/apunte/:apunteId',
+                parent: 'colaborativa',
+                templateUrl: 'views/colaborativa/apuntes/apunte.html',
+                controller: 'apunteIdController'
+            })
+            .state('misApuntes', {
+                url: '/misApuntes',
+                parent: 'colaborativa',
+                templateUrl: 'views/colaborativa/apuntes/apuntesMios.html',
+                controller: 'apuntesMiosController'
             });
 
 }).config(function ($mdThemingProvider) {
@@ -183,3 +207,18 @@ app.factory('verifyDelete', function ($mdDialog) {
         }
     }
 });
+app.factory('verifyDeleteApunte', function ($mdDialog) {
+    return{
+        confirm: function (apunte)
+        {
+            var confirm = $mdDialog.confirm()
+                    .title('Confirmaci\u00F3n para ' + apunte.datosGenerales.titulo)
+                    .content('\u00BFEst\u00E1s seguro de que deseas eliminar la noticia? ')
+                    .ariaLabel('Eliminar')
+                    .ok('Eliminar')
+                    .cancel('Cancelar');
+            return $mdDialog.show(confirm);
+        }
+    }
+});
+

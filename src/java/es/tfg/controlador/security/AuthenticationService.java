@@ -12,6 +12,7 @@ public class AuthenticationService {
     private TokenDAO tokenDAO;
     public static String SERVICE_PERSONAS = "personas";
     public static String SERVICE_NOTICIAS = "noticias";
+    public static String SERVICE_APUNTES = "apuntes";
 
     public String authenticate(String authCredentials) {
         String usuarioToken = null;
@@ -50,6 +51,22 @@ public class AuthenticationService {
                 }
 
             }else if(SERVICE_NOTICIAS.equals(peticionURL[1])){
+                
+                //Solo tiene restriccion el PUT y DELETE
+                //pues debe ser el usuario
+                //es decir si son esos métodos y no coincide el usuario, devolvemos false
+                if ((peticion.equals("PUT") || peticion.equals("DELETE"))) {
+                    long id = Long.parseLong(peticionURL[2]) ;
+                    Aporte aporte = aporteDAO.obtenAporte(id);
+                    if(aporte!=null){
+                        if(usuToken.equals(aporte.getPropietario())) return true;
+                    }
+                    return false;
+                }
+                
+                return true;
+                
+            }else if(SERVICE_APUNTES.equals(peticionURL[1])){
                 
                 //Solo tiene restriccion el PUT y DELETE
                 //pues debe ser el usuario

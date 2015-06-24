@@ -119,7 +119,7 @@ public class AportesDAO {
 
         try {
             iniciaOperacion();
-            Query query = sesion.createQuery("FROM Aporte A WHERE A.tipo = :tipo_id");
+            Query query = sesion.createQuery("FROM Aporte A WHERE A.tipo = :tipo_id ORDER BY A.id DESC");
             query.setParameter("tipo_id",tipo);
             query.setFirstResult(inicio);
             query.setMaxResults(tamPagina);
