@@ -3,7 +3,7 @@ angular.module('ClienteApp.controllers', []).
             auth.checkStatus();
         }).
         controller('colaborativaController', function ($scope, $state, auth, personasAPIservice, $cookies) {
-
+            $scope.mostrarMenu=false;
             $scope.$state = $state;
             $scope.logout = function ()
             {
@@ -29,6 +29,17 @@ angular.module('ClienteApp.controllers', []).
                         alert("Ha ocurrido un error inesperado");
                     }
                 });
+            };
+            $scope.showMenu = function ()
+            {
+                if($scope.mostrarMenu){
+                    document.getElementById("menuRight").style.display = "none";
+                    $scope.mostrarMenu=false;
+                }else{
+                    document.getElementById("menuRight").style.display = "block";
+                    $scope.mostrarMenu=true;
+                }
+                
             };
         }).
         controller('loginController', function ($scope, personasAPIservice, auth) {

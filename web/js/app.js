@@ -38,13 +38,13 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             .state('colaborativa', {
                 url: '/colaborativa',
                 parent: 'base',
-                templateUrl: 'views/colabora.html',
+                templateUrl: 'views/colaborativa.html',
                 controller: 'colaborativaController'
             })
             .state('noticias', {
                 url: '/noticias',
                 parent: 'colaborativa',
-                templateUrl: 'views/colaborativa/noticias.html'
+                templateUrl: 'views/colaborativa/noticia.html'
             })
             .state('noticiasTodas', {
                 url: '/noticiasTodas',
