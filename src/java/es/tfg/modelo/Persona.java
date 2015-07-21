@@ -1,6 +1,8 @@
 package es.tfg.modelo;
 
-public class Persona {
+import java.io.Serializable;
+
+public class Persona implements Serializable {
     private String usuario;
     private String password;
     private String nombre;

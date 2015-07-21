@@ -5,13 +5,14 @@
  */
 package es.tfg.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Usuario
  */
-public class Token {
+public class Token implements Serializable {
     private String token;
     private Date caducidad;
     private String idUsuario;

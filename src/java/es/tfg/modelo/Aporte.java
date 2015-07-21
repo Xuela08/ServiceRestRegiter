@@ -1,8 +1,9 @@
 package es.tfg.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Aporte {
+public class Aporte implements Serializable {
     private long id;
     private String titulo;
     private String descripcion;

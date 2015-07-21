@@ -20,9 +20,13 @@ public class ApuntesDAO {
 
     public long nuevoApunte(Apunte apunte) throws HibernateException {
         long id = 0;
-
+        Aporte aporte = null;
+        
         try {
             iniciaOperacion();
+            aportesDAO = new AportesDAO();
+            id = aportesDAO.nuevoAporte(apunte.getDatosGenerales());
+            apunte.setId(id);
             Date actual = new Date();
             apunte.getDatosGenerales().setF_creacion(actual);
             id = (long) sesion.save(apunte);
@@ -139,9 +143,9 @@ public class ApuntesDAO {
         try {
             iniciaOperacion();
             apunte = (Apunte) sesion.get(Apunte.class, idApunte);
-            long id = apunte.getDatosGenerales().getId();
-            Aporte aporte = aportesDAO.obtenAporte(id);
-            apunte.setDatosGenerales(aporte);
+//            long id = apunte.getDatosGenerales().getId();
+//            Aporte aporte = aportesDAO.obtenAporte(id);
+//            apunte.setDatosGenerales(aporte);
         } finally {
             sesion.close();
         }
@@ -193,18 +197,20 @@ public class ApuntesDAO {
         List<Apunte> listaAux = null;
 
         try {
-            iniciaOperacion();
-            Query query = sesion.createQuery("FROM Aporte A WHERE A.tipo = :tipo_id AND A.propietario = :usuario");
-            query.setParameter("tipo_id",tipo);
+            iniciaOperacion();            
+//            Query query = sesion.createQuery("FROM Aporte A WHERE A.tipo = :tipo_id AND A.propietario = :usuario");
+//            query.setParameter("tipo_id",tipo);
+//            query.setParameter("usuario",usuario);
+//            listaAportes = query.list();
+            Query query = sesion.createQuery("FROM Apunte A WHERE A.datosGenerales.propietario = :usuario");
             query.setParameter("usuario",usuario);
-            listaAportes = query.list();
-            
-            for(int i = 0; i < listaAportes.size(); i++){
-                 query = sesion.createQuery("FROM Apunte A WHERE A.datosGenerales = :datosGenerales");
-                 query.setParameter("datosGenerales", listaAportes.get(i));
-                 listaAux = query.list();
-                 listaApuntes.add(listaAux.get(0));
-            }
+            listaApuntes = query.list();
+//           for(int i = 0; i < listaAportes.size(); i++){
+//                 query = sesion.createQuery("FROM Apunte A WHERE A.datosGenerales = :datosGenerales");
+//                 query.setParameter("datosGenerales", listaAportes.get(i));
+//                 listaAux = query.list();
+//                 listaApuntes.add(listaAux.get(0));
+//            }
             
         } finally {
             sesion.close();

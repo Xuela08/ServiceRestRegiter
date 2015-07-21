@@ -1,6 +1,8 @@
 package es.tfg.modelo;
 
-public class Apunte {
+import java.io.Serializable;
+
+public class Apunte implements Serializable {
     private long id;
     private Aporte datosGenerales;
     private String carrera;

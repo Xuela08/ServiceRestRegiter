@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class RestAuthenticationFilter implements javax.servlet.Filter {
-
-    public static final String AUTHENTICATION_HEADER = "Authorization";
+    
     public static final String TOKEN_HEADER = "Token";
     
     @Override

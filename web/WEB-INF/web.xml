@@ -16,12 +16,12 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-	
     <servlet-mapping>
         <servlet-name>jaxrs-servlet</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
-      
+     
+     
     <filter>
         <filter-name>AuthenticationFilter</filter-name>
         <filter-class>es.tfg.controlador.security.RestAuthenticationFilter</filter-class>
@@ -32,4 +32,5 @@
         <url-pattern>/rest/noticias/*</url-pattern>
         <url-pattern>/rest/apuntes/*</url-pattern>
     </filter-mapping>
+    
 </web-app>

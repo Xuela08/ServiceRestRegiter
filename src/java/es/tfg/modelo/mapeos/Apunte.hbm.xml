@@ -2,10 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="es.tfg.modelo.Apunte" table="Apuntes">
-        <id column="ID" name="id">
-            <generator class="identity"/>
-        </id>
-        <many-to-one name="datosGenerales" class="es.tfg.modelo.Aporte" column="DATOS_GENERALES" not-null="true" cascade="all" unique="true" />
+        <id column="ID" name="id"></id>
+        <one-to-one name="datosGenerales" class="es.tfg.modelo.Aporte"
+			cascade="all"></one-to-one>
         <property column="CARRERA" name="carrera" type="string"/>
         <property column="CURSO" name="curso" type="int"/>
         <property column="ASIGNATURA" name="asignatura" type="string"/>

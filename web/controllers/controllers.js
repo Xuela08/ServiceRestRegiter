@@ -3,7 +3,7 @@ angular.module('ClienteApp.controllers', []).
             auth.checkStatus();
         }).
         controller('colaborativaController', function ($scope, $state, auth, personasAPIservice, $cookies) {
-            $scope.mostrarMenu=false;
+            $scope.mostrarMenu = false;
             $scope.$state = $state;
             $scope.logout = function ()
             {
@@ -32,14 +32,14 @@ angular.module('ClienteApp.controllers', []).
             };
             $scope.showMenu = function ()
             {
-                if($scope.mostrarMenu){
+                if ($scope.mostrarMenu) {
                     document.getElementById("menuRight").style.display = "none";
-                    $scope.mostrarMenu=false;
-                }else{
+                    $scope.mostrarMenu = false;
+                } else {
                     document.getElementById("menuRight").style.display = "block";
-                    $scope.mostrarMenu=true;
+                    $scope.mostrarMenu = true;
                 }
-                
+
             };
         }).
         controller('loginController', function ($scope, personasAPIservice, auth) {
@@ -71,9 +71,6 @@ angular.module('ClienteApp.controllers', []).
             }
         }).
         controller('registroController', function ($scope, personasAPIservice) {
-            //la función login que llamamos en la vista llama a la función
-            //login de la factoria auth pasando lo que contiene el campo
-            //de texto del formulario
             $scope.progressVisibility = false;
             $scope.correctVisibility = false;
             $scope.sexo = "Hombre";
@@ -187,12 +184,6 @@ angular.module('ClienteApp.controllers', []).
         controller('noticiasNuevaController', function ($scope, noticiasAPIservice, $cookies, auth, $location) {
             $scope.idUsuario = $cookies.idUsuario;
             $scope.valIMG = false;
-//            $scope.textoFun = function () {
-//                alert("aqui entra");
-//                $scope.texto = $scope.noticia.descripcion.replace(new RegExp("\n", "g"), "<br>");
-//                $scope.arrayTexto = $scope.texto.split("<br>")
-//                alert("reemplazado");
-//            }
             //Proceso para pasar la imagen a base64 para enviar por json string
             $scope.imageStrings = [];
             $scope.processFiles = function (files) {
@@ -295,7 +286,7 @@ angular.module('ClienteApp.controllers', []).
                 });
             }
             $scope.cargarNoticias();
-
+            
             $scope.borrarNoticias = function (noticia) {
                 verifyDelete.confirm(noticia).then(function () {
                     var responseDelete = noticiasAPIservice.eliminarNoticia(noticia);
@@ -415,23 +406,17 @@ angular.module('ClienteApp.controllers', []).
             $scope.filteri18n = function (array, expression) {
                 var filtra = [];
                 $scope.filtrado = array;
-                /** Transforma el texto quitando todos los acentos diéresis, etc. **/
+                
                 function normalize(texto) {
-                    //texto = texto.replace(/[áàäâ]/g, "a");
                     texto = texto.replace(/[\u00e1\u00c1]/g, "a");
-                    //texto = texto.replace(/[éèëê]/g, "e");
                     texto = texto.replace(/[\u00e9\u00c9]/g, "e");
-                    //texto = texto.replace(/[íìïî]/g, "i");
                     texto = texto.replace(/[\u00ed\u00cd]/g, "i");
-                    //texto = texto.replace(/[óòôö]/g, "o");
                     texto = texto.replace(/[\u00f3\u00d3]/g, "o");
-                    //texto = texto.replace(/[úùüü]/g, "u");
                     texto = texto.replace(/[\u00fa\u00da]/g, "u");
                     texto = texto.toUpperCase();
                     return texto;
                 }
-
-                /** Esta función es el comparator en el filter **/
+                
                 function comparador(actual, expected) {
                     if (normalize(actual).indexOf(normalize(expected)) >= 0) {
                         return true;
@@ -672,7 +657,7 @@ angular.module('ClienteApp.controllers', []).
             });
         }).
         controller('apuntesMiosController', function ($scope, apuntesAPIservice, auth, verifyDeleteApunte, $location) {
-            
+
             $scope.cargarApuntes = function () {
                 var response = apuntesAPIservice.getApunteMios();
                 response.success(json = function (data, status, headers, config) {

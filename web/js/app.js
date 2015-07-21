@@ -10,7 +10,7 @@ var app = angular.module('ClienteApp', [
     "flow"
 ]);
 
-//damos configuración de ruteo a nuestro sistema de login
+//damos configuración de ruteo a nuestro sistema
 app.config(function ($stateProvider, $urlRouterProvider) {
 
 
@@ -26,19 +26,19 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             .state('login', {
                 url: '/login',
                 parent: 'base',
-                templateUrl: 'views/login.html',
+                templateUrl: 'views/inicioLogin.html',
                 controller: 'loginController'
             })
             .state('registro', {
                 url: '/registro',
                 parent: 'base',
-                templateUrl: 'views/regis.html',
+                templateUrl: 'views/inicioRegistro.html',
                 controller: 'registroController'
             })
             .state('colaborativa', {
                 url: '/colaborativa',
                 parent: 'base',
-                templateUrl: 'views/colaborativa.html',
+                templateUrl: 'views/menu.html',
                 controller: 'colaborativaController'
             })
             .state('noticias', {
@@ -106,23 +106,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 controller: 'apuntesMiosController'
             });
 
-}).config(function ($mdThemingProvider) {
-    var pBlueMap = $mdThemingProvider.extendPalette('blue', {
-        '500': '1976D2'
-    });
-    $mdThemingProvider.definePalette('pBlueRed', pBlueMap);
-    $mdThemingProvider.theme('default')
-            .primaryPalette('pBlueRed')
-});
-//  config(['$routeProvider', function ($routeProvider) {
-//        $routeProvider.
-//                when("/login", {templateUrl: "views/login.html", controller: "loginController"}).
-//                when("/registro", {templateUrl: "views/registro.html", controller: "registroController"}).
-//                when("/home", {templateUrl: "views/home.html", controller: "homeController"}).
-//                when("/drivers/:id", {templateUrl: "views/driver.html", controller: "driverController"}).
-//                otherwise({redirectTo: '/login'});
-//    }]);
-
+})
 app.factory("auth", function ($cookies, $cookieStore, $location)
 {
     return{
@@ -177,21 +161,6 @@ app.factory("auth", function ($cookies, $cookieStore, $location)
         }
     }
 });
-
-//ESTO NO VA BIEN POR HACERLO CON ui.router... buscar el modo para hacerlo de forma similar a ngRouter
-//mientras corre la aplicación, comprobamos si el usuario tiene acceso a la ruta a la que está accediendo
-//app.run(function ($rootScope, auth)
-//{
-//    alert("run");
-//    //al cambiar de rutas
-//    $rootScope.$on('$routeChangeStart', function ()
-//    {
-//        alert("run1");
-//        //llamamos a checkStatus, el cual lo hemos definido en la factoria auth
-//        //la cuál hemos inyectado en la acción run de la aplicación
-//        auth.checkStatus();
-//    })
-//})
 
 app.factory('verifyDelete', function ($mdDialog) {
     return{
