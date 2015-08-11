@@ -10,7 +10,7 @@
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <!-- Otras propiedades importantes -->
         <property name="show_sql">true</property>
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">create</property>
         <!--<property  name="hibernate.hbm2ddl.import_files">import.sql</property>-->
         <!-- Archivos de mapeo -->
         <mapping resource="es/tfg/modelo/mapeos/Persona.hbm.xml"/>

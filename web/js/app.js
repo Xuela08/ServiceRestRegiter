@@ -10,10 +10,8 @@ var app = angular.module('ClienteApp', [
     "flow"
 ]);
 
-//damos configuración de ruteo a nuestro sistema
+//damos configuración de ruteo y creamos el controlador del sistema
 app.config(function ($stateProvider, $urlRouterProvider) {
-
-
     $urlRouterProvider.otherwise('/login');
     $urlRouterProvider.when('/colaborativa', '/colaborativa/noticias');
     $stateProvider
@@ -135,7 +133,7 @@ app.factory("auth", function ($cookies, $cookieStore, $location)
         checkStatus: function ()
         {
             //creamos un array con las rutas que queremos controlar
-            var rutasPrivadas = ["/colaborativa", "/registro", "/login"];
+            var rutasPrivadas = ["/colaborativa", "/registro", "/login","/colaborativa/noticias","/colaborativa/apuntes"];
             if (this.in_array($location.path(), rutasPrivadas) && typeof ($cookies.token) == "undefined")
             {
                 $location.path("/login");

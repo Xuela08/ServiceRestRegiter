@@ -260,7 +260,7 @@ angular.module('ClienteApp.controllers', []).
                 }
             });
         }).
-        controller('noticiasMiasController', function ($scope, noticiasAPIservice, auth, verifyDelete, $location) {
+        controller('noticiasMiasController', function ($scope, noticiasAPIservice, auth, verifyDelete) {
 
             $scope.cargarNoticias = function () {
                 var response = noticiasAPIservice.getNoticiaMias();
@@ -656,7 +656,7 @@ angular.module('ClienteApp.controllers', []).
                 }
             });
         }).
-        controller('apuntesMiosController', function ($scope, apuntesAPIservice, auth, verifyDeleteApunte, $location) {
+        controller('apuntesMiosController', function ($scope, apuntesAPIservice, auth, verifyDeleteApunte) {
 
             $scope.cargarApuntes = function () {
                 var response = apuntesAPIservice.getApunteMios();
